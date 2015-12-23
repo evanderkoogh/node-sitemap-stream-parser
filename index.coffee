@@ -48,7 +48,9 @@ class sitemapParser
 
 		@_download url, parserStream
 
-parseSitemaps = (urls, url_cb, done) ->
+exports.parseSitemaps = (urls, url_cb, done) ->
+	urls = [urls] unless urls instanceof Array
+
 	sitemapParser = new sitemapParser url_cb, (sitemap) ->
 		queue.push sitemap
 
@@ -57,12 +59,10 @@ parseSitemaps = (urls, url_cb, done) ->
 		done()
 	queue.push urls
 
-exports.parseSitemap = (url, url_cb, done) ->
-	parseSitemaps [url], url_cb, done
-
-exports.parseRobot = (url, url_cb, done) ->
+exports.sitemapsInRobots = (url, cb) ->
 	request.get url, (err, res, body) ->
+		return cb err if err
 		matches = []
 		body.replace /^Sitemap:\s?([^\s]+)$/igm, (m, p1) ->
 			matches.push(p1)
-		parseSitemaps matches, url_cb, done
+		cb null, matches
