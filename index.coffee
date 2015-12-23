@@ -34,6 +34,8 @@ class sitemapParser
 			inLoc = node.name is 'loc'
 			isURLSet = true if node.name is 'urlset'
 			isSitemapIndex = true if node.name is 'sitemapindex'
+		parserStream.on 'error', (err) ->
+			done err
 		parserStream.on 'text', (text) =>
 			if inLoc
 				if isURLSet
@@ -44,7 +46,7 @@ class sitemapParser
 					else
 						@sitemap_cb text
 		parserStream.on 'end', () =>
-			done()
+			done null, @visited_sitemaps
 
 		@_download url, parserStream
 
