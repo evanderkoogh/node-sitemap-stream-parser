@@ -68,6 +68,7 @@ exports.parseSitemaps = (urls, url_cb, done) ->
 exports.sitemapsInRobots = (url, cb) ->
 	request.get url, (err, res, body) ->
 		return cb err if err
+		return cb "statusCode: #{res.statusCode}" if res.statusCode isnt 200
 		matches = []
 		body.replace /^Sitemap:\s?([^\s]+)$/igm, (m, p1) ->
 			matches.push(p1)
