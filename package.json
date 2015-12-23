@@ -1,16 +1,27 @@
 {
-  "name": "sitemap-parser",
+  "name": "sitemap-stream-parser",
   "version": "1.0.0",
   "description": "Get a list of URLs from one or more sitemaps",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Erwin van der Koogh",
+  "author": "Erwin van der Koogh <erwin@404check.io>",
   "license": "ISC",
   "dependencies": {
     "async": "^1.5.0",
     "request": "^2.67.0",
     "sax": "^1.1.4"
+  },
+  "license" : "Apache-2.0",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/evanderkoogh/node-sitemap-stream-parser.git"
+  },
+  "scripts": {
+    "prepublish": "coffee -c index.coffee"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0"
   }
 }

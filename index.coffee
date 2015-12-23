@@ -8,7 +8,6 @@ headers =
 	'user-agent': '404check.io (http://404check.io)'
 agentOptions =
 	keepAlive: true
-	maxSockets: 2
 request = request.defaults {headers, agentOptions, timeout: 60000}
 
 class sitemapParser
@@ -49,11 +48,7 @@ class sitemapParser
 
 		@_download url, parserStream
 
-
-exports.parseSitemap = (url, url_cb, done) ->
-	parseSitemaps [url], url_cb, done
-
-parseSitemaps = (urls, url_cb, done) ->
+parseSitemaps = (urls, options, url_cb, done) ->
 	sitemapParser = new sitemapParser url_cb, (sitemap) ->
 		queue.push sitemap
 
@@ -62,9 +57,12 @@ parseSitemaps = (urls, url_cb, done) ->
 		done()
 	queue.push urls
 
-exports.parseRobot = (url, url_cb, done) ->
+exports.parseSitemap = (url, options, url_cb, done) ->
+	parseSitemaps [url], options, url_cb, done
+
+exports.parseRobot = (url, options, url_cb, done) ->
 	request.get url, (err, res, body) ->
 		matches = []
 		body.replace /^Sitemap:\s?([^\s]+)$/igm, (m, p1) ->
 			matches.push(p1)
-		parseSitemaps matches, url_cb, done
+		parseSitemaps matches, options, url_cb, done
