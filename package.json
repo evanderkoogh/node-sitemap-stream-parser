@@ -3,6 +3,7 @@
   "version": "1.1.2",
   "description": "Get a list of URLs from one or more sitemaps",
   "main": "index.js",
+  "keywords": ["sitemap", "parser", "stream", "multiple", "nested"],
   "scripts": {
     "prepublish": "coffee -c index.coffee"
   },
