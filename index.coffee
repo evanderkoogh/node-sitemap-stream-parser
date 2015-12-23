@@ -16,7 +16,7 @@ class sitemapParser
 
 	_download: (url, parserStream) ->
 
-		if url.endsWith '.gz'
+		if url.lastIndexOf('gz') is url.length - 2
 			unzip = zlib.createUnzip()
 			request.get({url, encoding: null}).pipe(unzip).pipe(parserStream)
 		else
