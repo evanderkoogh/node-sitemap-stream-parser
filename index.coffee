@@ -50,6 +50,10 @@ class sitemapParser
 
 		@_download url, parserStream
 
+exports.parseSitemap = (url, url_cb, sitemap_cb, done) ->
+	sitemapParser = new sitemapParser url_cb, sitemap_cb
+	sitemapParser.parse url, done	
+
 exports.parseSitemaps = (urls, url_cb, done) ->
 	urls = [urls] unless urls instanceof Array
 
