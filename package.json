@@ -1,6 +1,6 @@
 {
   "name": "sitemap-stream-parser",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Get a list of URLs from one or more sitemaps",
   "main": "index.js",
   "scripts": {
