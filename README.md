@@ -10,7 +10,7 @@ Example:
 ``` javascript
 var sitemaps = require('sitemap-stream-parser');
 
-sitemaps.parseSitemap('http://example.com/sitemap.xml', console.log, function(err, sitemaps) {
+sitemaps.parseSitemaps('http://example.com/sitemap.xml', console.log, function(err, sitemaps) {
     console.log('All done!');
 });
 ```
@@ -23,7 +23,7 @@ var sitemaps = require('sitemap-stream-parser');
 var urls = ['http://example.com/sitemap-posts.xml', 'http://example.com/sitemap-pages.xml']
 
 all_urls = []
-sitemaps.parseSitemap(urls, function(url) { all_urls.push[url] });, function(err, sitemaps) {
+sitemaps.parseSitemaps(urls, function(url) { all_urls.push[url] });, function(err, sitemaps) {
     console.log(all_urls);
     console.log('All done!');
 });
@@ -34,9 +34,9 @@ Sometimes sites advertise their sitemaps in their `robots.txt` file. To parse th
 ``` javascript
 var sitemaps = require('sitemap-stream-parser');
 
-sitemaps.sitemapsInRobots('http://example.com/robots.txt', function(urls) {
+sitemaps.sitemapsInRobots('http://example.com/robots.txt', function(err, urls) {
     if(urls.length > 0) {
-        sitemaps.parseSitemap('http://example.com/sitemap.xml', console.log, function(err, sitemaps) {
+        sitemaps.parseSitemaps(urls, console.log, function(err, sitemaps) {
             console.log(sitemaps);
         });
     } 
