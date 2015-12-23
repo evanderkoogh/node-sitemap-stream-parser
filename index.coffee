@@ -51,18 +51,18 @@ class sitemapParser
 		@_download url, parserStream
 
 exports.parseSitemap = (url, url_cb, sitemap_cb, done) ->
-	sitemapParser = new sitemapParser url_cb, sitemap_cb
-	sitemapParser.parse url, done	
+	parser = new sitemapParser url_cb, sitemap_cb
+	parser.parse url, done	
 
 exports.parseSitemaps = (urls, url_cb, done) ->
 	urls = [urls] unless urls instanceof Array
 
-	sitemapParser = new sitemapParser url_cb, (sitemap) ->
+	parser = new sitemapParser url_cb, (sitemap) ->
 		queue.push sitemap
 
-	queue = async.queue sitemapParser.parse, 4
+	queue = async.queue parser.parse, 4
 	queue.drain = () ->
-		done null, Object.keys(sitemapParser.visited_sitemaps)
+		done null, Object.keys(parser.visited_sitemaps)
 	queue.push urls
 
 exports.sitemapsInRobots = (url, cb) ->
