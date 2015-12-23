@@ -34,7 +34,7 @@ class sitemapParser
 			inLoc = node.name is 'loc'
 			isURLSet = true if node.name is 'urlset'
 			isSitemapIndex = true if node.name is 'sitemapindex'
-		parserStream.on 'error', (err) ->
+		parserStream.on 'error', (err) =>
 			done err
 		parserStream.on 'text', (text) =>
 			if inLoc
@@ -46,7 +46,7 @@ class sitemapParser
 					else
 						@sitemap_cb text
 		parserStream.on 'end', () =>
-			done null, @visited_sitemaps
+			done null
 
 		@_download url, parserStream
 
@@ -58,7 +58,7 @@ exports.parseSitemaps = (urls, url_cb, done) ->
 
 	queue = async.queue sitemapParser.parse, 4
 	queue.drain = () ->
-		done()
+		done null, Object.keys(sitemapParser.visited_sitemaps)
 	queue.push urls
 
 exports.sitemapsInRobots = (url, cb) ->
