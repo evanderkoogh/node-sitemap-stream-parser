@@ -10,8 +10,17 @@ url = 'http://elabor8.com.au/sitemap.xml'
 done = (err) ->
 	console.log 'Done!'
 
-#sitemaps.parseRobot 'http://amazon.com/robots.txt', console.log, done
-sitemaps.parseRobot 'http://yahoo.com/robots.txt', console.log, done
+i = 0
+increaseI = (url) ->
+	i++
+
+printI = () ->
+	console.log i
+
+setInterval printI, 10000
+
+sitemaps.parseRobot 'http://amazon.com/robots.txt', increaseI, done
+#sitemaps.parseRobot 'http://yahoo.com/robots.txt', console.log, done
 
 #sitemaps.parseSitemap url, console.log, done
 
