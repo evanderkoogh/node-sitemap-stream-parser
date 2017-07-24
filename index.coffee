@@ -2,7 +2,6 @@ request = require 'request'
 sax = require 'sax'
 async = require 'async'
 zlib = require 'zlib'
-domain = require 'domain'
 
 headers =
 	'user-agent': '404check.io (http://404check.io)'
