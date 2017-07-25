@@ -3,6 +3,7 @@ sax = require 'sax'
 async = require 'async'
 zlib = require 'zlib'
 domain = require 'domain'
+urlParser = require 'url'
 
 headers =
 	'user-agent': '404check.io (http://404check.io)'
@@ -10,7 +11,7 @@ agentOptions =
 	keepAlive: true
 request = request.defaults {headers, agentOptions, timeout: 60000}
 
-class sitemapParser
+class SitemapParser
 	constructor: (@url_cb, @sitemap_cb) ->
 		@visited_sitemaps = {}
 
@@ -51,18 +52,23 @@ class sitemapParser
 		@_download url, parserStream
 
 exports.parseSitemap = (url, url_cb, sitemap_cb, done) ->
-	sitemapParser = new sitemapParser url_cb, sitemap_cb
-	sitemapParser.parse url, done	
+	sitemapParser = new SitemapParser url_cb, sitemap_cb
+	sitemapParser.parse url, done
 
 exports.parseSitemaps = (urls, url_cb, done) ->
 	urls = [urls] unless urls instanceof Array
+	visited_sitemaps = []
 
-	sitemapParser = new sitemapParser url_cb, (sitemap) ->
-		queue.push sitemap
+	queue = async.queue (url, done) ->
+		sitemapParser = new SitemapParser url_cb, (sitemap) ->
+			queue.push urlParser.resolve url, sitemap
 
-	queue = async.queue sitemapParser.parse, 4
+		sitemapParser.parse url, () ->
+			Array::push.apply visited_sitemaps, Object.keys(sitemapParser.visited_sitemaps)
+			done()
+	, 4
 	queue.drain = () ->
-		done null, Object.keys(sitemapParser.visited_sitemaps)
+		done null, visited_sitemaps
 	queue.push urls
 
 exports.sitemapsInRobots = (url, cb) ->
