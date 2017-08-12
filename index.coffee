@@ -2,6 +2,7 @@ request = require 'request'
 sax = require 'sax'
 async = require 'async'
 zlib = require 'zlib'
+urlParser = require 'url'
 
 headers =
 	'user-agent': '404check.io (http://404check.io)'
@@ -36,6 +37,7 @@ class sitemapParser
 		parserStream.on 'error', (err) =>
 			done err
 		parserStream.on 'text', (text) =>
+			text = urlParser.resolve url, text
 			if inLoc
 				if isURLSet
 					@url_cb text
@@ -51,7 +53,7 @@ class sitemapParser
 
 exports.parseSitemap = (url, url_cb, sitemap_cb, done) ->
 	sitemapParser = new sitemapParser url_cb, sitemap_cb
-	sitemapParser.parse url, done	
+	sitemapParser.parse url, done
 
 exports.parseSitemaps = (urls, url_cb, done) ->
 	urls = [urls] unless urls instanceof Array
