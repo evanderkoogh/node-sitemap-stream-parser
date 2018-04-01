@@ -35,9 +35,9 @@ Sometimes sites advertise their sitemaps in their `robots.txt` file. To parse th
 var sitemaps = require('sitemap-stream-parser');
 
 sitemaps.sitemapsInRobots('http://example.com/robots.txt', function(err, urls) {
-    if(urls.length > 0) {
-        sitemaps.parseSitemaps(urls, console.log, function(err, sitemaps) {
-            console.log(sitemaps);
-        });
-    } 
+    if(!urls || urls.length == 0)
+        return;
+    sitemaps.parseSitemaps(urls, console.log, function(err, sitemaps) {
+        console.log(sitemaps);
+    });
 });
