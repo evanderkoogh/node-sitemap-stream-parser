@@ -8,6 +8,7 @@ headers =
 	'user-agent': '404check.io (http://404check.io)'
 agentOptions =
 	keepAlive: true
+	gzip: true
 request = request.defaults {headers, agentOptions, timeout: 60000}
 
 class SitemapParser
