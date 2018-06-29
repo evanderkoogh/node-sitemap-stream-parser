@@ -15,13 +15,16 @@ class SitemapParser
 	constructor: (@url_cb, @sitemap_cb) ->
 		@visited_sitemaps = {}
 
-	_download: (url, parserStream) ->
+	_download: (url, parserStream, done) ->
 
 		if url.lastIndexOf('.gz') is url.length - 3
 			unzip = zlib.createUnzip()
 			request.get({url, encoding: null}).pipe(unzip).pipe(parserStream)
 		else
-			return request.get({url, gzip:true}).pipe(parserStream)
+			stream = request.get({url, gzip:true})
+			stream.on 'error', (err) =>
+				done err
+			return stream.pipe(parserStream)
 
 	parse: (url, done) =>
 		isURLSet = false
@@ -50,7 +53,7 @@ class SitemapParser
 		parserStream.on 'end', () =>
 			done null
 
-		@_download url, parserStream
+		@_download url, parserStream, done
 
 exports.parseSitemap = (url, url_cb, sitemap_cb, done) ->
 	parser = new SitemapParser url_cb, sitemap_cb
