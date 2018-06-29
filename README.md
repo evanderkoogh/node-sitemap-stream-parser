@@ -1,11 +1,11 @@
 # node-sitemap-stream-parser
 A streaming parser for sitemap files. It is able to deal with GBs of deeply nested sitemaps with hundreds of URLs in them. Maximum memory usage is just over 100Mb at any time.
 
-#Usage
+## Usage
 
 The main method to extract URLs for a site is with the `parseSitemaps(urls, url_cb, done)` method. You can call it with both a single URL or an Array of URLs. The `url_cb` is called for every URL that is found. The `done` callback is passed an error and/or a list of all the sitemaps that were checked.
 
-Example:
+## Examples:
 
 ``` javascript
 var sitemaps = require('sitemap-stream-parser');
