@@ -20,10 +20,10 @@ or
 ``` javascript
 var sitemaps = require('sitemap-stream-parser');
 
-var urls = ['http://example.com/sitemap-posts.xml', 'http://example.com/sitemap-pages.xml']
+var urls = ['http://example.com/sitemap-posts.xml', 'http://example.com/sitemap-pages.xml'];
 
-all_urls = []
-sitemaps.parseSitemaps(urls, function(url) { all_urls.push(url) });, function(err, sitemaps) {
+all_urls = [];
+sitemaps.parseSitemaps(urls, function(url) { all_urls.push(url); }, function(err, sitemaps) {
     console.log(all_urls);
     console.log('All done!');
 });
