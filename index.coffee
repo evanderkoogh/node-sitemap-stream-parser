@@ -59,11 +59,12 @@ exports.parseSitemap = (url, url_cb, sitemap_cb, done) ->
 	parser = new SitemapParser url_cb, sitemap_cb
 	parser.parse url, done	
 
-exports.parseSitemaps = (urls, url_cb, done) ->
+exports.parseSitemaps = (urls, url_cb, done, sitemap_test) ->
 	urls = [urls] unless urls instanceof Array
 
 	parser = new SitemapParser url_cb, (sitemap) ->
-		queue.push sitemap
+		should_push = if sitemap_test then sitemap_test(sitemap) else false
+		queue.push sitemap if should_push
 
 	queue = async.queue parser.parse, 4
 	queue.drain = () ->
