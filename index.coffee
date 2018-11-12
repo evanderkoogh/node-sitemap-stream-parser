@@ -5,7 +5,7 @@ zlib = require 'zlib'
 urlParser = require 'url'
 
 headers =
-	'user-agent': '404check.io (http://404check.io)'
+	'user-agent': process.env.USER_AGENT || 'node-sitemap-stream-parser';
 agentOptions =
 	keepAlive: true
 	gzip: true
