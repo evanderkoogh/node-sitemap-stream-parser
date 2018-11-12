@@ -44,7 +44,7 @@ class SitemapParser
 			text = urlParser.resolve url, text
 			if inLoc
 				if isURLSet
-					@url_cb text
+					@url_cb text, url
 				else if isSitemapIndex
 					if @visited_sitemaps[text]?
 						console.error "Already parsed sitemap: #{text}"

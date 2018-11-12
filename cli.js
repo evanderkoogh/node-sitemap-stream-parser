@@ -17,11 +17,11 @@ program
       wstream = fs.createWriteStream(program.outfile);
     }
 
-    var urlOut = function(url) {
+    var urlOut = function(url, sitemap) {
       if (wstream) {
         wstream.write(url + '\n');
       } else {
-        console.log(url);
+        console.log(sitemap, ' - ', url);
       }
     },
     done = function(err, sitemaps) {
@@ -40,7 +40,6 @@ program
       if (!urls || urls.length < 1) {
         urls = [base + '/sitemap.xml'];
       }
-
       sitemaps.parseSitemaps(urls, urlOut, done);
     });
   })
