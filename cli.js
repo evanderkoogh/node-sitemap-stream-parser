@@ -21,7 +21,7 @@ program
       if (wstream) {
         wstream.write(url + '\n');
       } else {
-        console.log(sitemap, ' - ', url);
+        console.log(url);
       }
     },
     done = function(err, sitemaps) {
