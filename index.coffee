@@ -75,6 +75,10 @@ exports.parseSitemaps = (urls, url_cb, sitemap_test, done) ->
 		done null, Object.keys(parser.visited_sitemaps)
 	queue.push urls
 
+exports.parseSitemapsPromise = (urls, url_cb, sitemap_test) ->
+	new Promise (resolve) ->
+		exports.parseSitemaps(urls, url_cb, sitemap_test, resolve)
+
 exports.sitemapsInRobots = (url, cb) ->
 	request.get url, (err, res, body) ->
 		return cb err if err
