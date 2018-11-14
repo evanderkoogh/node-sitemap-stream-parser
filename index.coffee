@@ -59,7 +59,11 @@ exports.parseSitemap = (url, url_cb, sitemap_cb, done) ->
 	parser = new SitemapParser url_cb, sitemap_cb
 	parser.parse url, done	
 
-exports.parseSitemaps = (urls, url_cb, done, sitemap_test) ->
+exports.parseSitemaps = (urls, url_cb, sitemap_test, done) ->
+	unless done
+		done = sitemap_test
+		sitemap_test = undefined
+
 	urls = [urls] unless urls instanceof Array
 
 	parser = new SitemapParser url_cb, (sitemap) ->
