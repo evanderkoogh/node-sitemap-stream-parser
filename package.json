@@ -29,6 +29,6 @@
     "url": "https://github.com/evanderkoogh/node-sitemap-stream-parser.git"
   },
   "devDependencies": {
-    "coffeescript": "^1.10.0"
+    "coffeescript": "^2.3.2"
   }
 }
