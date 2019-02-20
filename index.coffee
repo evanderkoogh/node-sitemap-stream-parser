@@ -18,7 +18,7 @@ class SitemapParser
 	_download: (url, parserStream, done) ->
 
 		if url.lastIndexOf('.gz') is url.length - 3
-			unzip = zlib.createUnzip()
+			unzip = zlib.createGzip()
 			request.get({url, encoding: null}).pipe(unzip).pipe(parserStream)
 		else
 			stream = request.get({url, gzip:true})
