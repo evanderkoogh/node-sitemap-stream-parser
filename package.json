@@ -19,7 +19,7 @@
   "author": "Erwin van der Koogh <erwin@404check.io>",
   "license": "Apache-2.0",
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^3.1.0",
     "commander": "^2.15.1",
     "request": "^2.87.0",
     "sax": "^1.2.4"
